@@ -6,28 +6,28 @@ import com.dnillg.carassembly.domain.assembly.station.AssemblyStationType;
 
 import java.util.Random;
 
-public class HastyStation implements AssemblyStation {
+public class HastyAssemblyStation implements AssemblyStation {
 
     private static final Random RANDOM = new Random();
 
     private final AssemblyStation proxyObject;
 
-    private HastyStation(AssemblyStation proxyObject) {
+    private HastyAssemblyStation(AssemblyStation proxyObject) {
         this.proxyObject = proxyObject;
     }
 
-    public static HastyStation wrap(AssemblyStation station) {
-        return new HastyStation(station);
+    public static HastyAssemblyStation wrap(AssemblyStation station) {
+        return new HastyAssemblyStation(station);
     }
 
     @Override
-    public boolean accept(AssemblyCarEntity assemblyCarEntity) {
-        if (RANDOM.nextInt(10) >= 2) { // 80%
+    public Object accept(AssemblyCarEntity assemblyCarEntity) {
+        if (RANDOM.nextInt(10) >= 1) { // 90%
             proxyObject.accept(assemblyCarEntity);
         } else {
             // Skip the station
         }
-        return true;
+        return null;
     }
 
     @Override

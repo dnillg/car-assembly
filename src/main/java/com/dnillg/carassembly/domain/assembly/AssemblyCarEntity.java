@@ -8,12 +8,18 @@ import com.dnillg.carassembly.domain.car.painting.PaintingFinish;
 import com.dnillg.carassembly.domain.exception.AssemblyPreconditionException;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class AssemblyCarEntity {
 
+    private final String id;
     private Engine engine;
     private CarPainting painting;
     private int numberOfSeats;
+
+    public AssemblyCarEntity() {
+        this.id = UUID.randomUUID().toString();
+    }
 
     public AssemblyCarEntity paint() {
         painting = new CarPainting(CarColor.BLAZING_RED, PaintingFinish.MATTE);
@@ -30,26 +36,20 @@ public class AssemblyCarEntity {
         return this;
     }
 
-    public void polish() {
+    public AssemblyCarEntity polish() {
         if (Objects.isNull(painting)) {
             throw new AssemblyPreconditionException("Painting has to be applied before polish.");
         }
         painting = painting.polished();
-    }
-
-    public Engine getEngine() {
-        return engine;
-    }
-
-    public CarPainting getPainting() {
-        return painting;
-    }
-
-    public int getNumberOfSeats() {
-        return numberOfSeats;
+        return this;
     }
 
     public Car build() {
         return new Car(engine, painting, numberOfSeats);
     }
+
+    public String getId() {
+        return id;
+    }
+
 }
