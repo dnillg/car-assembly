@@ -1,6 +1,6 @@
 # Exercise Solution: Assembly Line
 
-##Notes
+## Notes
 > Simulating real world scenario means however that it has to be working properly and effectively in all scenario that 
 > can happen in real life (eg. handling parallel requests, managing edge cases etc.)
 
@@ -9,7 +9,7 @@ occupied by two different AssemblyCarEntity. This concern has been implemented n
 stations, so it can be also ignored. As a result the AssemblyCarEntities are processed in a pipeline, so station steps 
 are performed on different pieces at a moment. (`AssemblyLineIntegrationTest`).
 
-##Advice for improvements:
+## Advice for improvements:
 The Quality Assurance station builds the car according to the text of the exercise.
 > Our assembly line is made by the following four stations:
 > - 1 - painting station
@@ -36,5 +36,5 @@ Example:
 
 (The `build()` method is called by `AssemblyLine`).
 
-##Thanks, was fun!
+## Thanks, was fun!
 Thanks for the exercise, I had fun identifying the edge-cases, looking for options for abstraction and applying well-known patterns. :)

@@ -10,10 +10,10 @@ public class HastyAssemblyStation implements AssemblyStation {
 
     private static final Random RANDOM = new Random();
 
-    private final AssemblyStation proxyObject;
+    private final AssemblyStation delegate;
 
-    private HastyAssemblyStation(AssemblyStation proxyObject) {
-        this.proxyObject = proxyObject;
+    private HastyAssemblyStation(AssemblyStation delegate) {
+        this.delegate = delegate;
     }
 
     public static HastyAssemblyStation wrap(AssemblyStation station) {
@@ -23,7 +23,7 @@ public class HastyAssemblyStation implements AssemblyStation {
     @Override
     public Object accept(AssemblyCarEntity assemblyCarEntity) {
         if (RANDOM.nextInt(10) >= 1) { // 90%
-            proxyObject.accept(assemblyCarEntity);
+            delegate.accept(assemblyCarEntity);
         } else {
             // Skip the station
         }
@@ -32,6 +32,6 @@ public class HastyAssemblyStation implements AssemblyStation {
 
     @Override
     public AssemblyStationType getType() {
-        return proxyObject.getType();
+        return delegate.getType();
     }
 }

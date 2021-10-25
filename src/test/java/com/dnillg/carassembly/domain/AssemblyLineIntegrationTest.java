@@ -3,6 +3,7 @@ package com.dnillg.carassembly.domain;
 import com.dnillg.carassembly.domain.assembly.AssemblyCarEntity;
 import com.dnillg.carassembly.domain.assembly.AssemblyLine;
 import com.dnillg.carassembly.domain.assembly.MutualExclusionTestStation;
+import com.dnillg.carassembly.domain.assembly.station.qa.FakeQualityAssuranceAssemblyStation;
 import com.dnillg.carassembly.domain.lock.DummyDomainLock;
 import com.dnillg.carassembly.domain.assembly.station.AssemblyStation;
 import com.dnillg.carassembly.domain.assembly.station.decorator.MutuallyExclusiveAssemblyStation;
@@ -65,7 +66,19 @@ public class AssemblyLineIntegrationTest {
         final AssemblyStation mutualExclusionTestAssemblyStation = new MutualExclusionTestStation();
         final AssemblyLine assemblyLine = buildExclusiveHastyCompleteAssemblyLine(mutualExclusionTestAssemblyStation);
         assertThrows(AssertionFailedError.class, () -> executeParallelJobs(assemblyLine, 500));
+    }
 
+    @Test
+    void testAssemblyLineWhenFakeQualityAssuranceIsAppliedThenCarIsBuiltEventually() {
+        final AssemblyLine assemblyLine = buildFakeQualityAssuranceAssemblyLine();
+        final int jobsCount = 3;
+
+        final List<Car> result = executeParallelJobs(assemblyLine, jobsCount);
+
+        assertEquals(jobsCount, result.size());
+        for (var item : result) {
+            assertNotNull(item);
+        }
     }
 
     private List<Car> executeParallelJobs(AssemblyLine assemblyLine, int jobsCount) {
@@ -93,6 +106,12 @@ public class AssemblyLineIntegrationTest {
         List<AssemblyStation> stations = new ArrayList<>(List.of(mechanichAssemblyStation, interiorAssemblyStation, paintingAssemblyStation, polishingAssemblyStation, qualityAssuranceStation));
         stations.addAll(0, Arrays.asList(additionalStations));
         return new AssemblyLine(stations.toArray(AssemblyStation[]::new));
+    }
+
+    private AssemblyLine buildFakeQualityAssuranceAssemblyLine() {
+        final AssemblyStation mechanichAssemblyStation = new MechanichAssemblyStation();
+        final AssemblyStation qualityAssuranceStation = new FakeQualityAssuranceAssemblyStation();
+        return new AssemblyLine(1000, mechanichAssemblyStation, qualityAssuranceStation);
     }
 
     private DummyDomainLock createLock(String prefix) {

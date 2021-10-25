@@ -20,7 +20,7 @@ class HastyAssemblyStationTest {
 
         IntStream.range(0, 1000).forEach(i -> hastyAssemblyStation.accept(mock(AssemblyCarEntity.class)));
 
-        verify(assemblyStation, Mockito.atMost(1000-1)).accept(any());
+        verify(assemblyStation, Mockito.atMost(1000-1)).accept(any()); // at least once it was skipped
     }
 
 }

@@ -20,7 +20,7 @@ class InteriorAssemblyStationTest {
     }
 
     @Test
-    void testAcceptInvokesAssemblyInteriorMethod() {
+    void testAcceptInvokesAssemblyInterior() {
         AssemblyCarEntity assemblyCarEntity = mock(AssemblyCarEntity.class);
         when(assemblyCarEntity.assemblyInterior()).thenReturn(assemblyCarEntity);
 

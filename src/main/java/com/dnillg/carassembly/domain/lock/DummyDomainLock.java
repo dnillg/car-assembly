@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.function.Supplier;
 
 /**
- * A simple lock that provides mutual exclusion for the provided critial section on the JVM.
+ * A simple lock that provides mutual exclusion for the provided critical section on the JVM.
  * For scaled micro-services a fenced distributed lock should be used.
  */
 public class DummyDomainLock implements DomainLock {

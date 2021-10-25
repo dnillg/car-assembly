@@ -7,11 +7,11 @@ import com.dnillg.carassembly.domain.assembly.station.AssemblyStationType;
 
 public class MutuallyExclusiveAssemblyStation implements AssemblyStation {
 
-    private final AssemblyStation station;
+    private final AssemblyStation delegate;
     private final DomainLock lock;
 
-    public MutuallyExclusiveAssemblyStation(AssemblyStation station, DomainLock lock) {
-        this.station = station;
+    public MutuallyExclusiveAssemblyStation(AssemblyStation delegate, DomainLock lock) {
+        this.delegate = delegate;
         this.lock = lock;
     }
 
@@ -21,11 +21,11 @@ public class MutuallyExclusiveAssemblyStation implements AssemblyStation {
 
     @Override
     public Object accept(AssemblyCarEntity assemblyCarEntity) {
-        return lock.executeWithLock(() -> station.accept(assemblyCarEntity));
+        return lock.executeWithLock(() -> delegate.accept(assemblyCarEntity));
     }
 
     @Override
     public AssemblyStationType getType() {
-        return station.getType();
+        return delegate.getType();
     }
 }

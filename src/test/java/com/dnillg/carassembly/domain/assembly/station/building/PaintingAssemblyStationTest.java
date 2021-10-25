@@ -20,7 +20,7 @@ class PaintingAssemblyStationTest {
     }
 
     @Test
-    void testAcceptInvokesAssemblyInteriorMethod() {
+    void testAcceptInvokesAssemblyCarEntity() {
         AssemblyCarEntity assemblyCarEntity = mock(AssemblyCarEntity.class);
         when(assemblyCarEntity.paint()).thenReturn(assemblyCarEntity);
 

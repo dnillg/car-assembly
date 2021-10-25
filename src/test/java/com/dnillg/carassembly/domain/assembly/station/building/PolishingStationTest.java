@@ -20,7 +20,7 @@ class PolishingStationTest {
     }
 
     @Test
-    void testAcceptInvokesAssemblyInteriorMethod() {
+    void testAcceptInvokesPolish() {
         AssemblyCarEntity assemblyCarEntity = mock(AssemblyCarEntity.class);
         when(assemblyCarEntity.polish()).thenReturn(assemblyCarEntity);
 
